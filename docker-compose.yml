@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_MULTIPLE_DATABASES=${DBS_NAMES}
+    volumes:
+      - ./docker/create-multiple-postgres-databases.sh:/docker-entrypoint-initdb.d/db_init.sh
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+
