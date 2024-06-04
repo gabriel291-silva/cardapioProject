@@ -25,4 +25,22 @@ model User {
   openingHours String
   minimumOrder String
 
+  products Product[] @relation("userId")
+}
+
+
+model Product {
+    id          Int          @id @default(autoincrement())
+    name String
+    priceMax Int
+    priceMin Int
+    midiaMobile String
+    midiaDesktop String
+    stuckInGrass String
+    description String
+    additions String[]
+    categories Int[]
+    
+    user          User  @relation("userId", fields: [userId], references: [id])
+    userId   String
 }
